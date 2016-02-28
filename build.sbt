@@ -1,6 +1,6 @@
 name := "sangria-play-json"
 organization := "org.sangria-graphql"
-version := "0.2.0-SNAPSHOT"
+version := "0.2.0"
 
 description := "Sangria play-json marshalling"
 homepage := Some(url("http://sangria-graphql.org"))
@@ -10,11 +10,11 @@ scalaVersion := "2.11.7"
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
-  "org.sangria-graphql" %% "sangria-marshalling-api" % "0.1.0",
+  "org.sangria-graphql" %% "sangria-marshalling-api" % "0.1.1",
   "com.typesafe.play" %% "play-json" % "2.4.6",
 
-  "org.sangria-graphql" %% "sangria-marshalling-testkit" % "0.1.0" % "test",
-  "org.scalatest" %% "scalatest" % "2.2.4" % "test"
+  "org.sangria-graphql" %% "sangria-marshalling-testkit" % "0.1.2" % "test",
+  "org.scalatest" %% "scalatest" % "2.2.6" % "test"
 )
 
 git.remoteRepo := "git@github.com:sangria-graphql/sangria-play-json.git"

@@ -2,6 +2,8 @@ package sangria.marshalling
 
 import play.api.libs.json._
 
+import scala.util.Try
+
 object playJson extends PlayJsonSupportLowPrioImplicits {
   implicit object PlayJsonResultMarshaller extends ResultMarshaller {
     type Node = JsValue
@@ -101,6 +103,10 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
           throw InputParsingError(formattedErrors)
       }
     }
+
+  implicit object PlayJsonInputParser extends InputParser[JsValue] {
+    def parse(str: String) = Try(Json.parse(str))
+  }
 }
 
 trait PlayJsonSupportLowPrioImplicits {

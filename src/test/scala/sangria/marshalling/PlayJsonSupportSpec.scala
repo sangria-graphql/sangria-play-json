@@ -3,11 +3,11 @@ package sangria.marshalling
 import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json._
 
-import sangria.marshalling.testkit.{InputHandlingBehaviour, MarshallingBehaviour, Comment, Article}
+import sangria.marshalling.testkit._
 import sangria.marshalling.playJson._
 
 
-class PlayJsonSupportSpec extends WordSpec with Matchers with MarshallingBehaviour with InputHandlingBehaviour {
+class PlayJsonSupportSpec extends WordSpec with Matchers with MarshallingBehaviour with InputHandlingBehaviour with ParsingBehaviour {
   implicit val commentFormat = Json.format[Comment]
   implicit val articleFormat = Json.format[Article]
 
@@ -19,6 +19,15 @@ class PlayJsonSupportSpec extends WordSpec with Matchers with MarshallingBehavio
 
     behave like `case class input unmarshaller`
     behave like `case class input marshaller` (PlayJsonResultMarshaller)
+
+    behave like `input parser` (ParseTestSubjects(
+      complex = """{"a": [null, 123, [{"foo": "bar"}]], "b": {"c": true, "d": null}}""",
+      simpleString = "\"bar\"",
+      simpleInt = "12345",
+      simpleNull = "null",
+      list = "[\"bar\", 1, null, true, [1, 2, 3]]",
+      syntaxError = List("[123, \"FOO\" \"BAR\"")
+    ))
   }
 
   val toRender = Json.obj(
