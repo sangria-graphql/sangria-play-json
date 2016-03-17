@@ -1,3 +1,7 @@
+## v0.2.1 (2016-03-17)
+
+* Updated play-json to v2.5.0
+
 ## v0.2.0 (2016-02-28)
 
 * Added support for input parsing by providing an instance of `InputParser` type class
