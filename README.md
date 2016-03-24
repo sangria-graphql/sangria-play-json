@@ -5,7 +5,7 @@
 SBT Configuration:
 
 ```scala
-libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "0.2.1"
+libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "0.3.0"
 ```
 
 ## License
