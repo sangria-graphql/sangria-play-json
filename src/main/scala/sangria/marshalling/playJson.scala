@@ -22,12 +22,19 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
       case None ⇒ nullNode
     }
 
-    def stringNode(value: String) = JsString(value)
-    def floatNode(value: Double) = JsNumber(value)
-    def booleanNode(value: Boolean) = JsBoolean(value)
-    def intNode(value: Int) = JsNumber(value)
-    def bigIntNode(value: BigInt) = JsNumber(BigDecimal(value))
-    def bigDecimalNode(value: BigDecimal) = JsNumber(value)
+    def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]) = value match {
+      case v: String ⇒ JsString(v)
+      case v: Boolean ⇒ JsBoolean(v)
+      case v: Int ⇒ JsNumber(v)
+      case v: Long ⇒ JsNumber(v)
+      case v: Float ⇒ JsNumber(v)
+      case v: Double ⇒ JsNumber(v)
+      case v: BigInt ⇒ JsNumber(BigDecimal(v))
+      case v: BigDecimal ⇒ JsNumber(v)
+      case v ⇒ throw new IllegalArgumentException("Unsupported scalar value: " + v)
+    }
+
+    def enumNode(value: String, typeName: String) = JsString(value)
 
     def nullNode = JsNull
 

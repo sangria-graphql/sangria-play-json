@@ -1,3 +1,8 @@
+## v0.3.2 (2016-05-01)
+
+* Updated to sangria-marshalling-api v0.2.1
+* Updated play-json to v2.5.3
+
 ## v0.3.1 (2016-04-02)
 
 * Updated play-json to v2.5.1
