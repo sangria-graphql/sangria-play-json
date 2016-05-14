@@ -8,6 +8,19 @@ SBT Configuration:
 libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "0.3.2"
 ```
 
+## Compatibility matrix
+
+|Sangri-play-json |play-json |sangria-marshalling-api|
+|-----------------|----------|-----------------------|
+|v0.1.0           | 2.4.6    | 0.1.0                 |
+|v0.2.0           | 2.4.6    | 0.1.1                 |
+|v0.2.1           | 2.5.0    | 0.1.1                 |
+|v0.3.0           | 2.5.0    | 0.2.0                 |
+|v0.3.1           | 2.5.1    | 0.2.0                 |
+|v0.3.2           | 2.5.3    | 0.2.1                 |
+
+
 ## License
 
 **sangria-play-json** is licensed under [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0).
+
