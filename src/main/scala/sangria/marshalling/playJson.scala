@@ -24,10 +24,11 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
 
     def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]) = value match {
       case v: String ⇒ JsString(v)
-      case v: Boolean ⇒ JsBoolean(v)
+      case true ⇒ JsTrue
+      case false ⇒ JsFalse
       case v: Int ⇒ JsNumber(v)
       case v: Long ⇒ JsNumber(v)
-      case v: Float ⇒ JsNumber(v)
+      case v: Float ⇒ JsNumber(v.toDouble)
       case v: Double ⇒ JsNumber(v)
       case v: BigInt ⇒ JsNumber(BigDecimal(v))
       case v: BigDecimal ⇒ JsNumber(v)
