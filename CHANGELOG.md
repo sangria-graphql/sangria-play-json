@@ -1,3 +1,8 @@
+## v1.0.1 (2017-03-01)
+
+* Updated play-json to v2.6.0-M3
+* Cross-compile for scala 2.11 and 2.12
+
 ## v1.0.0 (2017-01-16)
 
 * 1.0 Release
