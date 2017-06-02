@@ -13,7 +13,7 @@ scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.0",
-  "com.typesafe.play" %% "play-json" % "2.6.0-M3",
+  "com.typesafe.play" %% "play-json" % "2.6.0-RC1",
 
   "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.0" % "test",
   "org.scalatest" %% "scalatest" % "3.0.1" % "test"
