@@ -26,10 +26,10 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
       case v: String ⇒ JsString(v)
       case true ⇒ JsTrue
       case false ⇒ JsFalse
-      case v: Int ⇒ JsNumber(v)
-      case v: Long ⇒ JsNumber(v)
-      case v: Float ⇒ JsNumber(v.toDouble)
-      case v: Double ⇒ JsNumber(v)
+      case v: Int ⇒ JsNumber(BigDecimal(v))
+      case v: Long ⇒ JsNumber(BigDecimal(v))
+      case v: Float ⇒ JsNumber(BigDecimal(v.toDouble))
+      case v: Double ⇒ JsNumber(BigDecimal(v))
       case v: BigInt ⇒ JsNumber(BigDecimal(v))
       case v: BigDecimal ⇒ JsNumber(v)
       case v ⇒ throw new IllegalArgumentException("Unsupported scalar value: " + v)
