@@ -1,6 +1,6 @@
 name := "sangria-play-json"
 organization := "org.sangria-graphql"
-version := "1.0.3-SNAPSHOT"
+version := "1.0.3"
 
 description := "Sangria play-json marshalling"
 homepage := Some(url("http://sangria-graphql.org"))
@@ -13,7 +13,7 @@ scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.0",
-  "com.typesafe.play" %% "play-json" % "2.6.0",
+  "com.typesafe.play" %% "play-json" % "2.6.2",
 
   "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.0" % "test",
   "org.scalatest" %% "scalatest" % "3.0.3" % "test"
