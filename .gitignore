@@ -6,3 +6,11 @@ classes
 
 # files
 *.iml
+
+# Eclipse (Scala IDE) artifacts
+.classpath
+.project
+.settings
+.cache-main
+.cache-tests
+bin
