@@ -1,5 +1,9 @@
 ## v1.0.3 (2017-07-06)
 
+* Updated play-json to v2.6.6
+
+## v1.0.3 (2017-07-06)
+
 * Updated play-json to v2.6.2
 
 ## v1.0.2 (2017-06-14)
