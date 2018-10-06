@@ -24,7 +24,7 @@ libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "1.0.4"
 |1.0.2             | 2.6.0-RC2| 1.0.0                 |
 |1.0.3             | 2.6.2    | 1.0.0                 |
 |1.0.4             | 2.6.6    | 1.0.0                 |
-
+|1.0.5             | 2.6.10   | 1.0.3                 |
 
 ## License
 
