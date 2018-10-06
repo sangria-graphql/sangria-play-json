@@ -15,7 +15,7 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     def mapNode(builder: MapBuilder) = JsObject(builder.toSeq)
     def mapNode(keyValues: Seq[(String, JsValue)]) = JsObject(keyValues)
 
-    def arrayNode(values: Vector[JsValue]) = JsArray(values)
+    def arrayNode(values: Vector[JsValue]) = Json.arr(values)
 
     def optionalArrayNodeValue(value: Option[JsValue]) = value match {
       case Some(v) ⇒ v
