@@ -1,6 +1,7 @@
 name := "sangria-play-json"
 organization := "org.sangria-graphql"
 version := "1.0.6-SNAPSHOT"
+mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "1.0.5")
 
 description := "Sangria play-json marshalling"
 homepage := Some(url("http://sangria-graphql.org"))
@@ -20,6 +21,8 @@ libraryDependencies ++= Seq(
 
 // Publishing
 
+releaseCrossBuild := true
+releasePublishArtifactsAction := PgpKeys.publishSigned.value
 publishMavenStyle := true
 publishArtifact in Test := false
 pomIncludeRepository := (_ ⇒ false)

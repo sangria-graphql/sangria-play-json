@@ -51,7 +51,7 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     def getRootMapValue(node: JsValue, key: String) = node.asInstanceOf[JsObject].value get key
 
     def isListNode(node: JsValue) = node.isInstanceOf[JsArray]
-    def getListValue(node: JsValue) = node.asInstanceOf[JsArray].value.toSeq
+    def getListValue(node: JsValue) = node.asInstanceOf[JsArray].value.toIndexedSeq
 
     def isMapNode(node: JsValue) = node.isInstanceOf[JsObject]
     def getMapValue(node: JsValue, key: String) = node.asInstanceOf[JsObject].value get key
