@@ -15,8 +15,8 @@ libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.4",
   "com.typesafe.play" %% "play-json" % "2.7.4",
 
-  "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.2" % "test",
-  "org.scalatest" %% "scalatest" % "3.0.8" % "test")
+  "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.2" % Test,
+  "org.scalatest" %% "scalatest" % "3.0.8" % Test)
 
 // Publishing
 
@@ -34,8 +34,8 @@ startYear := Some(2016)
 organizationHomepage := Some(url("https://github.com/sangria-graphql"))
 developers := Developer("OlegIlyenko", "Oleg Ilyenko", "", url("https://github.com/OlegIlyenko")) :: Nil
 scmInfo := Some(ScmInfo(
-  browseUrl = url("https://github.com/sangria-graphql/sangria-play-json.git"),
-  connection = "scm:git:git@github.com:sangria-graphql/sangria-play-json.git"))
+  browseUrl = url("https://github.com/sangria-graphql-org/sangria-play-json.git"),
+  connection = "scm:git:git@github.com:sangria-graphql-org/sangria-play-json.git"))
 
 // nice *magenta* prompt!
 
