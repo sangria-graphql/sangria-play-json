@@ -1,6 +1,5 @@
 name := "sangria-play-json"
 organization := "org.sangria-graphql"
-version := "1.0.6-SNAPSHOT"
 mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "1.0.5")
 
 description := "Sangria play-json marshalling"
