@@ -9,20 +9,20 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     type Node = JsValue
     type MapBuilder = ArrayMapBuilder[Node]
 
-    def emptyMapNode(keys: Seq[String]) = new ArrayMapBuilder[Node](keys)
-    def addMapNodeElem(builder: MapBuilder, key: String, value: Node, optional: Boolean) = builder.add(key, value)
+    override def emptyMapNode(keys: Seq[String]): MapBuilder = new ArrayMapBuilder[Node](keys)
+    override def addMapNodeElem(builder: MapBuilder, key: String, value: Node, optional: Boolean): MapBuilder = builder.add(key, value)
 
-    def mapNode(builder: MapBuilder) = JsObject(builder.toSeq)
-    def mapNode(keyValues: Seq[(String, JsValue)]) = JsObject(keyValues)
+    override def mapNode(builder: MapBuilder): Node = JsObject(builder.toSeq)
+    override def mapNode(keyValues: Seq[(String, JsValue)]): Node = JsObject(keyValues)
 
-    def arrayNode(values: Vector[JsValue]) = JsArray(values)
+    override def arrayNode(values: Vector[JsValue]) = JsArray(values)
 
-    def optionalArrayNodeValue(value: Option[JsValue]) = value match {
+    override def optionalArrayNodeValue(value: Option[JsValue]): Node = value match {
       case Some(v) ⇒ v
       case None ⇒ nullNode
     }
 
-    def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]) = value match {
+    override def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]): Node = value match {
       case v: String ⇒ JsString(v)
       case true ⇒ JsTrue
       case false ⇒ JsFalse
@@ -35,12 +35,12 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
       case v ⇒ throw new IllegalArgumentException("Unsupported scalar value: " + v)
     }
 
-    def enumNode(value: String, typeName: String) = JsString(value)
+    override def enumNode(value: String, typeName: String): Node = JsString(value)
 
-    def nullNode = JsNull
+    override def nullNode: Node = JsNull
 
-    def renderCompact(node: JsValue) = Json.stringify(node)
-    def renderPretty(node: JsValue) = Json.prettyPrint(node)
+    override def renderCompact(node: JsValue): String = Json.stringify(node)
+    override def renderPretty(node: JsValue): String = Json.prettyPrint(node)
   }
 
   implicit object PlayJsonMarshallerForType extends ResultMarshallerForType[JsValue] {
@@ -48,36 +48,36 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
   }
 
   implicit object PlayJsonInputUnmarshaller extends InputUnmarshaller[JsValue] {
-    def getRootMapValue(node: JsValue, key: String) = node.asInstanceOf[JsObject].value get key
+    override def getRootMapValue(node: JsValue, key: String): Option[JsValue] = node.asInstanceOf[JsObject].value get key
 
-    def isListNode(node: JsValue) = node.isInstanceOf[JsArray]
-    def getListValue(node: JsValue) = node.asInstanceOf[JsArray].value.toIndexedSeq
+    override def isListNode(node: JsValue) = node.isInstanceOf[JsArray]
+    override def getListValue(node: JsValue): Seq[JsValue] = node.asInstanceOf[JsArray].value.toSeq
 
-    def isMapNode(node: JsValue) = node.isInstanceOf[JsObject]
-    def getMapValue(node: JsValue, key: String) = node.asInstanceOf[JsObject].value get key
-    def getMapKeys(node: JsValue) = node.asInstanceOf[JsObject].keys
+    override def isMapNode(node: JsValue): Boolean = node.isInstanceOf[JsObject]
+    override def getMapValue(node: JsValue, key: String): Option[JsValue] = node.asInstanceOf[JsObject].value get key
+    override def getMapKeys(node: JsValue): Iterable[String] = node.asInstanceOf[JsObject].keys
 
-    def isDefined(node: JsValue) = node != JsNull
-    def getScalarValue(node: JsValue) = node match {
+    override def isDefined(node: JsValue): Boolean = node != JsNull
+    override def getScalarValue(node: JsValue): Any = node match {
       case JsBoolean(b) ⇒ b
       case JsNumber(d) ⇒ d.toBigIntExact getOrElse d
       case JsString(s) ⇒ s
       case _ ⇒ throw new IllegalStateException(s"$node is not a scalar value")
     }
 
-    def getScalaScalarValue(node: JsValue) = getScalarValue(node)
+    override def getScalaScalarValue(node: JsValue): Any = getScalarValue(node)
 
-    def isEnumNode(node: JsValue) = node.isInstanceOf[JsString]
+    override def isEnumNode(node: JsValue): Boolean = node.isInstanceOf[JsString]
 
-    def isScalarNode(node: JsValue) = node match {
+    override def isScalarNode(node: JsValue): Boolean = node match {
       case _: JsBoolean | _: JsNumber | _: JsString ⇒ true
       case _ ⇒ false
     }
 
-    def isVariableNode(node: JsValue) = false
-    def getVariableName(node: JsValue) = throw new IllegalArgumentException("variables are not supported")
+    override def isVariableNode(node: JsValue): Boolean = false
+    override def getVariableName(node: JsValue): String = throw new IllegalArgumentException("variables are not supported")
 
-    def render(node: JsValue) = Json.stringify(node)
+    override def render(node: JsValue): String = Json.stringify(node)
   }
 
   private object PlayJsonToInput extends ToInput[JsValue, JsValue] {
