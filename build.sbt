@@ -31,7 +31,7 @@ publishTo := Some(
   else
     "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 startYear := Some(2016)
-organizationHomepage := Some(url("https://github.com/sangria-graphql"))
+organizationHomepage := Some(url("https://github.com/sangria-graphql-org"))
 developers := Developer("OlegIlyenko", "Oleg Ilyenko", "", url("https://github.com/OlegIlyenko")) :: Nil
 scmInfo := Some(ScmInfo(
   browseUrl = url("https://github.com/sangria-graphql-org/sangria-play-json.git"),
