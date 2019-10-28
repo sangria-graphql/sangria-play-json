@@ -31,10 +31,10 @@ class PlayJsonSupportSpec extends WordSpec with Matchers with MarshallingBehavio
   }
 
   val toRender = Json.obj(
-    "a" → Json.arr(JsNull, JsNumber(123), Json.arr(Json.obj("foo" → JsString("bar")))),
-    "b" → Json.obj(
-      "c" → JsBoolean(true),
-      "d" → JsNull))
+    "a" -> Json.arr(JsNull, JsNumber(123), Json.arr(Json.obj("foo" -> JsString("bar")))),
+    "b" -> Json.obj(
+      "c" -> JsBoolean(true),
+      "d" -> JsNull))
 
   "InputUnmarshaller" should {
     "throw an exception on invalid scalar values" in {
