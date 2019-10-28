@@ -1,3 +1,9 @@
+## v2.0.0 (2019-10-28)
+
+* scala 2.13 build support (#1) @pjfanning
+* automate release notes (#9) @yanns
+* add library version compat matrix (#2) @joprice
+
 ## v1.0.3 (2018-10-06)
 
 * Updated play-json to v2.6.10
