@@ -18,21 +18,21 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     override def arrayNode(values: Vector[JsValue]) = JsArray(values)
 
     override def optionalArrayNodeValue(value: Option[JsValue]): Node = value match {
-      case Some(v) ⇒ v
-      case None ⇒ nullNode
+      case Some(v) => v
+      case None => nullNode
     }
 
     override def scalarNode(value: Any, typeName: String, info: Set[ScalarValueInfo]): Node = value match {
-      case v: String ⇒ JsString(v)
-      case true ⇒ JsTrue
-      case false ⇒ JsFalse
-      case v: Int ⇒ JsNumber(BigDecimal(v))
-      case v: Long ⇒ JsNumber(BigDecimal(v))
-      case v: Float ⇒ JsNumber(BigDecimal(v.toDouble))
-      case v: Double ⇒ JsNumber(BigDecimal(v))
-      case v: BigInt ⇒ JsNumber(BigDecimal(v))
-      case v: BigDecimal ⇒ JsNumber(v)
-      case v ⇒ throw new IllegalArgumentException("Unsupported scalar value: " + v)
+      case v: String => JsString(v)
+      case true => JsTrue
+      case false => JsFalse
+      case v: Int => JsNumber(BigDecimal(v))
+      case v: Long => JsNumber(BigDecimal(v))
+      case v: Float => JsNumber(BigDecimal(v.toDouble))
+      case v: Double => JsNumber(BigDecimal(v))
+      case v: BigInt => JsNumber(BigDecimal(v))
+      case v: BigDecimal => JsNumber(v)
+      case v => throw new IllegalArgumentException("Unsupported scalar value: " + v)
     }
 
     override def enumNode(value: String, typeName: String): Node = JsString(value)
@@ -59,10 +59,10 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
 
     override def isDefined(node: JsValue): Boolean = node != JsNull
     override def getScalarValue(node: JsValue): Any = node match {
-      case JsBoolean(b) ⇒ b
-      case JsNumber(d) ⇒ d.toBigIntExact getOrElse d
-      case JsString(s) ⇒ s
-      case _ ⇒ throw new IllegalStateException(s"$node is not a scalar value")
+      case JsBoolean(b) => b
+      case JsNumber(d) => d.toBigIntExact getOrElse d
+      case JsString(s) => s
+      case _ => throw new IllegalStateException(s"$node is not a scalar value")
     }
 
     override def getScalaScalarValue(node: JsValue): Any = getScalarValue(node)
@@ -70,8 +70,8 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     override def isEnumNode(node: JsValue): Boolean = node.isInstanceOf[JsString]
 
     override def isScalarNode(node: JsValue): Boolean = node match {
-      case _: JsBoolean | _: JsNumber | _: JsString ⇒ true
-      case _ ⇒ false
+      case _: JsBoolean | _: JsNumber | _: JsString => true
+      case _ => false
     }
 
     override def isVariableNode(node: JsValue): Boolean = false
@@ -89,7 +89,7 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
 
   implicit def playJsonWriterToInput[T : Writes]: ToInput[T, JsValue] =
     new ToInput[T, JsValue] {
-      def toInput(value: T) = implicitly[Writes[T]].writes(value) → PlayJsonInputUnmarshaller
+      def toInput(value: T) = implicitly[Writes[T]].writes(value) -> PlayJsonInputUnmarshaller
     }
 
   private object PlayJsonFromInput extends FromInput[JsValue] {
@@ -104,10 +104,10 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     new FromInput[T] {
       val marshaller = PlayJsonResultMarshaller
       def fromResult(node: marshaller.Node) = implicitly[Reads[T]].reads(node) match {
-        case JsSuccess(v, _) ⇒ v
-        case JsError(errors) ⇒
+        case JsSuccess(v, _) => v
+        case JsError(errors) =>
           val formattedErrors = errors.toVector.flatMap {
-            case (JsPath(nodes), es) ⇒ es.map(e ⇒ s"At path '${nodes mkString "."}': ${e.message}")
+            case (JsPath(nodes), es) => es.map(e => s"At path '${nodes mkString "."}': ${e.message}")
           }
 
           throw InputParsingError(formattedErrors)
