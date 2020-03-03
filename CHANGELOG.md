@@ -1,3 +1,18 @@
+## v2.0.1 (2020-03-3)
+
+https://github.com/sangria-graphql-org/sangria-play-json/releases/tag/v2.0.1
+
+* Updated play to 2.8 (#25) @ErikHedblom
+* scala 2.13.1 (#26) @yanns
+* Update sbt-release to 1.0.13 (#19) @scala-steward
+* Update sbt to 1.3.8 (#22) @scala-steward
+* Update sbt-mima-plugin to 0.6.4 (#23) @scala-steward
+* coursier cache (#17) @yanns
+* Update sbt to 1.3.6 (#16) @scala-steward
+* Update sbt-pgp to 2.0.1 (#15) @scala-steward
+* Update sbt to 1.3.5 (#14) @scala-steward
+* replace arrow ligatures (#10) @pjfanning
+
 ## v2.0.0 (2019-10-28)
 
 * scala 2.13 build support (#1) @pjfanning
