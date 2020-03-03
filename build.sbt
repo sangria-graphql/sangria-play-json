@@ -6,7 +6,7 @@ description := "Sangria play-json marshalling"
 homepage := Some(url("http://sangria-graphql.org"))
 licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
 
-scalaVersion := "2.13.0"
+scalaVersion := "2.13.1"
 crossScalaVersions := Seq("2.12.10", scalaVersion.value)
 
 scalacOptions ++= Seq("-deprecation", "-feature")
