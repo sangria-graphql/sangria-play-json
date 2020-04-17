@@ -1,13 +1,14 @@
 package sangria.marshalling
 
-import org.scalatest.{Matchers, WordSpec}
 import play.api.libs.json._
 
 import sangria.marshalling.testkit._
 import sangria.marshalling.playJson._
+import org.scalatest.matchers.should.Matchers
+import org.scalatest.wordspec.AnyWordSpec
 
 
-class PlayJsonSupportSpec extends WordSpec with Matchers with MarshallingBehaviour with InputHandlingBehaviour with ParsingBehaviour {
+class PlayJsonSupportSpec extends AnyWordSpec with Matchers with MarshallingBehaviour with InputHandlingBehaviour with ParsingBehaviour {
   implicit val commentFormat = Json.format[Comment]
   implicit val articleFormat = Json.format[Article]
 
