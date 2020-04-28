@@ -1,6 +1,6 @@
 ## v2.0.1 (2020-03-3)
 
-https://github.com/sangria-graphql-org/sangria-play-json/releases/tag/v2.0.1
+https://github.com/sangria-graphql/sangria-play-json/releases/tag/v2.0.1
 
 * Updated play to 2.8 (#25) @ErikHedblom
 * scala 2.13.1 (#26) @yanns
