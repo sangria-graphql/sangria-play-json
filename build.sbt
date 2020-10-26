@@ -9,6 +9,9 @@ licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/
 scalaVersion := "2.13.1"
 crossScalaVersions := Seq("2.12.10", scalaVersion.value)
 
+scalacOptions += "-target:jvm-1.8"
+javacOptions ++= Seq("-source", "8", "-target", "8")
+
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
