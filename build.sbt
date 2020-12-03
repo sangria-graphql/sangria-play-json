@@ -9,14 +9,17 @@ licenses := Seq("Apache License, ASL Version 2.0" -> url("http://www.apache.org/
 scalaVersion := "2.13.1"
 crossScalaVersions := Seq("2.12.10", scalaVersion.value)
 
+scalacOptions += "-target:jvm-1.8"
+javacOptions ++= Seq("-source", "8", "-target", "8")
+
 scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.4",
-  "com.typesafe.play" %% "play-json" % "2.8.1",
+  "com.typesafe.play" %% "play-json" % "2.9.1",
 
   "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.3" % Test,
-  "org.scalatest" %% "scalatest" % "3.1.1" % Test)
+  "org.scalatest" %% "scalatest" % "3.1.4" % Test)
 
 // Publishing
 
@@ -31,11 +34,11 @@ publishTo := Some(
   else
     "releases" at "https://oss.sonatype.org/service/local/staging/deploy/maven2")
 startYear := Some(2016)
-organizationHomepage := Some(url("https://github.com/sangria-graphql-org"))
+organizationHomepage := Some(url("https://github.com/sangria-graphql"))
 developers := Developer("OlegIlyenko", "Oleg Ilyenko", "", url("https://github.com/OlegIlyenko")) :: Nil
 scmInfo := Some(ScmInfo(
-  browseUrl = url("https://github.com/sangria-graphql-org/sangria-play-json.git"),
-  connection = "scm:git:git@github.com:sangria-graphql-org/sangria-play-json.git"))
+  browseUrl = url("https://github.com/sangria-graphql/sangria-play-json.git"),
+  connection = "scm:git:git@github.com:sangria-graphql/sangria-play-json.git"))
 
 // nice *magenta* prompt!
 
