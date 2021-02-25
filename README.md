@@ -1,4 +1,4 @@
-[Sangria](http://sangria-graphql.org/) [play-json](https://www.playframework.com/documentation/2.2.x/ScalaJson) marshalling.
+[Sangria](http://sangria-graphql.org/) [play-json](https://www.playframework.com/documentation/2.8.x/ScalaJson) marshalling.
 
 ![Continuous Integration](https://github.com/sangria-graphql/sangria-play-json/workflows/Continuous%20Integration/badge.svg)
 [![Coverage Status](http://coveralls.io/repos/sangria-graphql/sangria-play-json/badge.svg?branch=master&service=github)](http://coveralls.io/github/sangria-graphql/sangria-play-json?branch=master)
@@ -9,7 +9,7 @@
 SBT Configuration:
 
 ```scala
-libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "2.0.1"
+libraryDependencies += "org.sangria-graphql" %% "sangria-play-json" % "<latest version>"
 ```
 
 ## Compatibility matrix
