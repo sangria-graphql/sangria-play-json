@@ -15,3 +15,5 @@ classes
 .cache-main
 .cache-tests
 bin
+.metals/
+.vscode/
