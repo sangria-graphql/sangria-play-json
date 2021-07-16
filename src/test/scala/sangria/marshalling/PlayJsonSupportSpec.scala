@@ -13,8 +13,8 @@ class PlayJsonSupportSpec
     with MarshallingBehaviour
     with InputHandlingBehaviour
     with ParsingBehaviour {
-  implicit val commentFormat = Json.format[Comment]
-  implicit val articleFormat = Json.format[Article]
+  implicit val commentFormat: OFormat[Comment] = Json.format[Comment]
+  implicit val articleFormat: OFormat[Article] = Json.format[Article]
 
   "PlayJson integration" should {
     behave.like(`value (un)marshaller`(PlayJsonResultMarshaller))
@@ -36,7 +36,7 @@ class PlayJsonSupportSpec
       )))
   }
 
-  val toRender = Json.obj(
+  val toRender: JsObject = Json.obj(
     "a" -> Json.arr(JsNull, JsNumber(123), Json.arr(Json.obj("foo" -> JsString("bar")))),
     "b" -> Json.obj("c" -> JsBoolean(true), "d" -> JsNull))
 

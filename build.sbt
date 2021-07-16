@@ -1,13 +1,21 @@
+val isScala3 = Def.setting(
+  CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
+)
+
 name := "sangria-play-json"
 organization := "org.sangria-graphql"
-mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.1")
-
+mimaPreviousArtifacts := {
+  if (isScala3.value)
+    Set.empty
+  else
+    Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.1")
+}
 description := "Sangria play-json marshalling"
-homepage := Some(url("http://sangria-graphql.org"))
+homepage := Some(url("http://sangria-graphql.github.io/"))
 licenses := Seq(
-  "Apache License, ASL Version 2.0" -> url("http://www.apache.org/licenses/LICENSE-2.0"))
+  "Apache License, ASL Version 2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0"))
 
-ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6")
+ThisBuild / crossScalaVersions := Seq("2.12.14", "2.13.6", "3.0.0")
 ThisBuild / scalaVersion := crossScalaVersions.value.last
 ThisBuild / githubWorkflowPublishTargetBranches := List()
 ThisBuild / githubWorkflowBuildPreamble ++= List(
@@ -15,14 +23,17 @@ ThisBuild / githubWorkflowBuildPreamble ++= List(
   WorkflowStep.Sbt(List("scalafmtCheckAll"), name = Some("Check formatting"))
 )
 
-scalacOptions += "-target:jvm-1.8"
+scalacOptions ++= {
+  if (isScala3.value)
+    Seq("-Xtarget:8")
+  else
+    Seq("-target:jvm-1.8")
+} ++ Seq("-deprecation", "-feature")
 javacOptions ++= Seq("-source", "8", "-target", "8")
-
-scalacOptions ++= Seq("-deprecation", "-feature")
 
 libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.6",
-  "com.typesafe.play" %% "play-json" % "2.9.2",
+  "com.typesafe.play" %% "play-json" % "2.10.0-RC5",
   "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
   "org.scalatest" %% "scalatest" % "3.2.9" % Test
 )
@@ -31,7 +42,6 @@ libraryDependencies ++= Seq(
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowPublishTargetBranches :=
   Seq(RefPredicate.StartsWith(Ref.Tag("v")))
-
 ThisBuild / githubWorkflowPublish := Seq(
   WorkflowStep.Sbt(
     List("ci-release"),
@@ -57,7 +67,6 @@ scmInfo := Some(
     connection = "scm:git:git@github.com:sangria-graphql/sangria-play-json.git"))
 
 // nice *magenta* prompt!
-
 ThisBuild / shellPrompt := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }
