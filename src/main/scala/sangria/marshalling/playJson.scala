@@ -49,14 +49,14 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
   }
 
   implicit object PlayJsonMarshallerForType extends ResultMarshallerForType[JsValue] {
-    val marshaller = PlayJsonResultMarshaller
+    val marshaller: PlayJsonResultMarshaller.type = PlayJsonResultMarshaller
   }
 
   implicit object PlayJsonInputUnmarshaller extends InputUnmarshaller[JsValue] {
     override def getRootMapValue(node: JsValue, key: String): Option[JsValue] =
       node.asInstanceOf[JsObject].value.get(key)
 
-    override def isListNode(node: JsValue) = node.isInstanceOf[JsArray]
+    override def isListNode(node: JsValue): Boolean = node.isInstanceOf[JsArray]
     override def getListValue(node: JsValue): Seq[JsValue] = node.asInstanceOf[JsArray].value.toSeq
 
     override def isMapNode(node: JsValue): Boolean = node.isInstanceOf[JsObject]
@@ -89,7 +89,8 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
   }
 
   private object PlayJsonToInput extends ToInput[JsValue, JsValue] {
-    def toInput(value: JsValue) = (value, PlayJsonInputUnmarshaller)
+    def toInput(value: JsValue): (JsValue, PlayJsonInputUnmarshaller.type) =
+      (value, PlayJsonInputUnmarshaller)
   }
 
   implicit def playJsonToInput[T <: JsValue]: ToInput[T, JsValue] =
@@ -97,12 +98,13 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
 
   implicit def playJsonWriterToInput[T: Writes]: ToInput[T, JsValue] =
     new ToInput[T, JsValue] {
-      def toInput(value: T) = implicitly[Writes[T]].writes(value) -> PlayJsonInputUnmarshaller
+      def toInput(value: T): (JsValue, PlayJsonInputUnmarshaller.type) =
+        implicitly[Writes[T]].writes(value) -> PlayJsonInputUnmarshaller
     }
 
   private object PlayJsonFromInput extends FromInput[JsValue] {
-    val marshaller = PlayJsonResultMarshaller
-    def fromResult(node: marshaller.Node) = node
+    val marshaller: PlayJsonResultMarshaller.type = PlayJsonResultMarshaller
+    def fromResult(node: marshaller.Node): JsValue = node
   }
 
   implicit def playJsonFromInput[T <: JsValue]: FromInput[T] =
@@ -110,8 +112,8 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
 
   implicit def playJsonReaderFromInput[T: Reads]: FromInput[T] =
     new FromInput[T] {
-      val marshaller = PlayJsonResultMarshaller
-      def fromResult(node: marshaller.Node) = implicitly[Reads[T]].reads(node) match {
+      val marshaller: PlayJsonResultMarshaller.type = PlayJsonResultMarshaller
+      def fromResult(node: marshaller.Node): T = implicitly[Reads[T]].reads(node) match {
         case JsSuccess(v, _) => v
         case JsError(errors) =>
           val formattedErrors = errors.toVector.flatMap { case (JsPath(nodes), es) =>
@@ -123,11 +125,11 @@ object playJson extends PlayJsonSupportLowPrioImplicits {
     }
 
   implicit object PlayJsonInputParser extends InputParser[JsValue] {
-    def parse(str: String) = Try(Json.parse(str))
+    def parse(str: String): Try[JsValue] = Try(Json.parse(str))
   }
 }
 
 trait PlayJsonSupportLowPrioImplicits {
-  implicit val PlayJsonInputUnmarshallerJObject =
+  implicit val PlayJsonInputUnmarshallerJObject: InputUnmarshaller[JsObject] =
     playJson.PlayJsonInputUnmarshaller.asInstanceOf[InputUnmarshaller[JsObject]]
 }
