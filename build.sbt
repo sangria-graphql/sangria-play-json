@@ -1,41 +1,16 @@
-val isScala3 = Def.setting(
-  CrossVersion.partialVersion(scalaVersion.value).exists(_._1 == 3)
-)
+import PlayAxis._
 
-name := "sangria-play-json"
-organization := "org.sangria-graphql"
-mimaPreviousArtifacts := {
-  if (isScala3.value)
-    Set.empty
-  else
-    Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.1")
-}
-description := "Sangria play-json marshalling"
-homepage := Some(url("http://sangria-graphql.github.io/"))
-licenses := Seq(
+ThisBuild / organization := "org.sangria-graphql"
+ThisBuild / mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.2")
+ThisBuild / description := "Sangria play-json marshalling"
+ThisBuild / homepage := Some(url("https://sangria-graphql.github.io/"))
+ThisBuild / licenses := Seq(
   "Apache License, ASL Version 2.0" -> url("https://www.apache.org/licenses/LICENSE-2.0"))
 
-ThisBuild / crossScalaVersions := Seq("2.12.18", "2.13.12", "3.3.1")
-ThisBuild / scalaVersion := crossScalaVersions.value.last
 ThisBuild / githubWorkflowPublishTargetBranches := List()
 ThisBuild / githubWorkflowBuildPreamble ++= List(
   WorkflowStep.Sbt(List("mimaReportBinaryIssues"), name = Some("Check binary compatibility")),
   WorkflowStep.Sbt(List("scalafmtCheckAll"), name = Some("Check formatting"))
-)
-
-scalacOptions ++= {
-  if (isScala3.value)
-    Seq("-Xtarget:8")
-  else
-    Seq("-target:jvm-1.8")
-} ++ Seq("-deprecation", "-feature")
-javacOptions ++= Seq("-source", "8", "-target", "8")
-
-libraryDependencies ++= Seq(
-  "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
-  "com.typesafe.play" %% "play-json" % "2.10.0-RC7",
-  "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
-  "org.scalatest" %% "scalatest" % "3.2.17" % Test
 )
 
 // Publishing
@@ -54,14 +29,14 @@ ThisBuild / githubWorkflowPublish := Seq(
   )
 )
 
-startYear := Some(2016)
-organizationHomepage := Some(url("https://github.com/sangria-graphql"))
-developers := Developer(
+ThisBuild / startYear := Some(2016)
+ThisBuild / organizationHomepage := Some(url("https://github.com/sangria-graphql"))
+ThisBuild / developers := Developer(
   "OlegIlyenko",
   "Oleg Ilyenko",
   "",
   url("https://github.com/OlegIlyenko")) :: Nil
-scmInfo := Some(
+ThisBuild / scmInfo := Some(
   ScmInfo(
     browseUrl = url("https://github.com/sangria-graphql/sangria-play-json"),
     connection = "scm:git:git@github.com:sangria-graphql/sangria-play-json.git"))
@@ -70,3 +45,51 @@ scmInfo := Some(
 ThisBuild / shellPrompt := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }
+
+val scala212 = "2.12.18"
+val scala213 = "2.13.12"
+val scala3 = "3.3.1"
+
+lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
+  .settings(
+    name := "sangria-play-json",
+    scalacOptions ++= Seq("-deprecation", "-feature"),
+    Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oFD"),
+    libraryDependencies ++= Seq(
+      "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
+      "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
+      "org.scalatest" %% "scalatest" % "3.2.17" % Test
+    )
+  )
+  .customRow(
+    scalaVersions = Seq(scala212, scala213),
+    axisValues = Seq(play28, VirtualAxis.jvm),
+    _.settings(
+      moduleName := name.value + "-play28",
+      javacOptions ++= Seq("-source", "8", "-target", "8"),
+      scalacOptions ++= Seq("-target:jvm-1.8"),
+      libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play-json" % "2.8.2",
+      )
+    )
+  )
+  .customRow(
+    scalaVersions = Seq(scala213, scala3),
+    axisValues = Seq(play29, VirtualAxis.jvm),
+    _.settings(
+      moduleName := name.value + "-play29",
+      libraryDependencies ++= Seq(
+        "com.typesafe.play" %% "play-json" % "2.10.4",
+      )
+    )
+  )
+  .customRow(
+    scalaVersions = Seq(scala213, scala3),
+    axisValues = Seq(play30, VirtualAxis.jvm),
+    _.settings(
+      moduleName := name.value + "-play30",
+      libraryDependencies ++= Seq(
+        "org.playframework" %% "play-json" % "3.0.2",
+      )
+    )
+  )
