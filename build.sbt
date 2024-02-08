@@ -33,7 +33,7 @@ javacOptions ++= Seq("-source", "8", "-target", "8")
 
 libraryDependencies ++= Seq(
   "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
-  "com.typesafe.play" %% "play-json" % "2.10.0-RC7",
+  "com.typesafe.play" %% "play-json" % "2.10.4",
   "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
   "org.scalatest" %% "scalatest" % "3.2.17" % Test
 )
