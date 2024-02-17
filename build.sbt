@@ -1,7 +1,7 @@
 import PlayAxis._
 
 ThisBuild / organization := "org.sangria-graphql"
-ThisBuild / mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.2")
+ThisBuild / mimaPreviousArtifacts := Set()
 ThisBuild / description := "Sangria play-json marshalling"
 ThisBuild / homepage := Some(url("https://sangria-graphql.github.io/"))
 ThisBuild / licenses := Seq(
@@ -46,6 +46,9 @@ ThisBuild / shellPrompt := { state =>
   scala.Console.MAGENTA + Project.extract(state).currentRef.project + "> " + scala.Console.RESET
 }
 
+publish / skip := true
+publishLocal / skip := true
+
 val scala212 = "2.12.18"
 val scala213 = "2.13.12"
 val scala3 = "3.3.1"
@@ -54,6 +57,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
   .settings(
     name := "sangria-play-json",
     scalacOptions ++= Seq("-deprecation", "-feature"),
+    mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.2"),
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oFD"),
     libraryDependencies ++= Seq(
       "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
