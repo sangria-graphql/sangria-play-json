@@ -1,7 +1,12 @@
 import PlayAxis._
 
+val scala212 = "2.12.18"
+val scala213 = "2.13.12"
+val scala3 = "3.3.1"
+
 ThisBuild / organization := "org.sangria-graphql"
 ThisBuild / mimaPreviousArtifacts := Set()
+ThisBuild / scalaVersion := scala3
 ThisBuild / description := "Sangria play-json marshalling"
 ThisBuild / homepage := Some(url("https://sangria-graphql.github.io/"))
 ThisBuild / licenses := Seq(
@@ -14,6 +19,8 @@ ThisBuild / githubWorkflowBuildPreamble ++= List(
 )
 
 // Publishing
+ThisBuild / githubWorkflowJavaVersions := Seq(JavaSpec.temurin("11"))
+ThisBuild / githubWorkflowScalaVersions := Seq(scala212, scala213, scala3)
 ThisBuild / githubWorkflowTargetTags ++= Seq("v*")
 ThisBuild / githubWorkflowPublishTargetBranches :=
   Seq(RefPredicate.StartsWith(Ref.Tag("v")))
@@ -48,10 +55,6 @@ ThisBuild / shellPrompt := { state =>
 
 publish / skip := true
 publishLocal / skip := true
-
-val scala212 = "2.12.18"
-val scala213 = "2.13.12"
-val scala3 = "3.3.1"
 
 lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
   .settings(
