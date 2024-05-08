@@ -2,7 +2,7 @@ import PlayAxis._
 
 val scala212 = "2.12.19"
 val scala213 = "2.13.13"
-val scala3 = "3.3.3"
+val scala3 = "3.4.1"
 
 ThisBuild / organization := "org.sangria-graphql"
 ThisBuild / mimaPreviousArtifacts := Set()
@@ -76,7 +76,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
       javacOptions ++= Seq("-source", "8", "-target", "8"),
       scalacOptions ++= Seq("-target:jvm-1.8"),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.8.2",
+        "com.typesafe.play" %% "play-json" % "2.8.2"
       )
     )
   )
@@ -86,7 +86,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play29",
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.10.4",
+        "com.typesafe.play" %% "play-json" % "2.10.4"
       )
     )
   )
@@ -96,7 +96,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play30",
       libraryDependencies ++= Seq(
-        "org.playframework" %% "play-json" % "3.0.2",
+        "org.playframework" %% "play-json" % "3.0.2"
       )
     )
   )
