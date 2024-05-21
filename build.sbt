@@ -76,7 +76,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
       javacOptions ++= Seq("-source", "8", "-target", "8"),
       scalacOptions ++= Seq("-target:jvm-1.8"),
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.8.2"
+        "org.playframework" %% "play-json" % "2.8.2"
       )
     )
   )
@@ -86,7 +86,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play29",
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.10.5"
+        "org.playframework" %% "play-json" % "3.0.3"
       )
     )
   )
