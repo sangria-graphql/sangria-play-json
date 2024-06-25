@@ -65,7 +65,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     libraryDependencies ++= Seq(
       "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
       "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
-      "org.scalatest" %% "scalatest" % "3.2.18" % Test
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test
     )
   )
   .customRow(
