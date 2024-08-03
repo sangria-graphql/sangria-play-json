@@ -65,7 +65,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     libraryDependencies ++= Seq(
       "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
       "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
-      "org.scalatest" %% "scalatest" % "3.2.18" % Test
+      "org.scalatest" %% "scalatest" % "3.2.19" % Test
     )
   )
   .customRow(
@@ -86,7 +86,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play29",
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.10.5"
+        "com.typesafe.play" %% "play-json" % "2.10.6"
       )
     )
   )
@@ -96,7 +96,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play30",
       libraryDependencies ++= Seq(
-        "org.playframework" %% "play-json" % "3.0.2"
+        "org.playframework" %% "play-json" % "3.0.4"
       )
     )
   )
