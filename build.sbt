@@ -63,7 +63,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     mimaPreviousArtifacts := Set("org.sangria-graphql" %% "sangria-play-json" % "2.0.2"),
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oFD"),
     libraryDependencies ++= Seq(
-      "org.sangria-graphql" %% "sangria-marshalling-api" % "1.0.8",
+      "org.sangria-graphql" %% "sangria-marshalling-api" % "1.1.2",
       "org.sangria-graphql" %% "sangria-marshalling-testkit" % "1.0.4" % Test,
       "org.scalatest" %% "scalatest" % "3.2.19" % Test
     )
