@@ -1,8 +1,8 @@
 import PlayAxis._
 
-val scala212 = "2.12.19"
+val scala212 = "2.12.20"
 val scala213 = "2.13.15"
-val scala3 = "3.4.2"
+val scala3 = "3.4.3"
 
 ThisBuild / organization := "org.sangria-graphql"
 ThisBuild / mimaPreviousArtifacts := Set()
