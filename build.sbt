@@ -86,7 +86,7 @@ lazy val sangriaPlayJson = (projectMatrix in file("sangria-play-json"))
     _.settings(
       moduleName := name.value + "-play29",
       libraryDependencies ++= Seq(
-        "com.typesafe.play" %% "play-json" % "2.10.6"
+        "com.typesafe.play" %% "play-json" % "2.10.7"
       )
     )
   )
